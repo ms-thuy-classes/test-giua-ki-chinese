@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panda Quiz Fix - 40 Câu</title>
+    <title>Panda Chinese Quiz - Fixed</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
     <style>
@@ -18,61 +18,49 @@
             border-radius: 2.5rem;
             box-shadow: 0 20px 50px rgba(0,0,0,0.05);
         }
-        .progress-bg { height: 12px; background: #f1f5f9; border-radius: 10px; position: relative; }
+        .progress-bg { height: 12px; background: #f1f5f9; border-radius: 10px; position: relative; margin-top: 40px; }
         #progress-bar { height: 100%; background: #ec4899; border-radius: 10px; transition: width 0.4s; }
-        #panda-walker { position: absolute; top: -35px; right: -20px; width: 45px; transition: right 0.4s; }
-        
-        /* Hiệu ứng màu sắc phản hồi */
+        #panda-walker { position: absolute; top: -45px; right: -25px; width: 50px; animation: bounce 2s infinite; transition: right 0.4s; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
         .correct-flash { background-color: #dcfce7 !important; border-color: #22c55e !important; color: #166534 !important; }
         .wrong-flash { background-color: #fee2e2 !important; border-color: #ef4444 !important; color: #991b1b !important; }
-        
-        .hidden-page { display: none; }
+        .hidden-page { display: none !important; }
     </style>
 </head>
 <body>
 
     <div id="quiz-app" class="w-full max-w-3xl px-4 py-8">
-        
         <div id="start-page" class="glass-card p-10 text-center">
-            <img src="https://img.icons8.com/bubbles/200/panda.png" class="mx-auto mb-4">
-            <h1 class="text-3xl font-bold text-gray-800 mb-6">Chào mừng bạn đến với bài kiểm tra! 🐼</h1>
-            <input type="text" id="student-name" placeholder="Nhập tên học sinh..." 
-                class="w-full max-w-sm p-4 rounded-2xl border-2 border-pink-100 outline-none text-center text-xl mb-8">
+            <img src="https://png.pngtree.com/png-clipart/20240610/original/pngtree-chibi-cute-panda-png-image_15299496.png" style="width: 130px;" class="mx-auto mb-4">
+            <h1 class="text-3xl font-bold text-gray-800 mb-6">Kiểm Tra Tiếng Trung 🐼</h1>
+            <input type="text" id="student-name" placeholder="Nhập tên học sinh..." class="w-full max-w-sm p-4 rounded-2xl border-2 border-pink-100 outline-none text-center text-xl mb-8">
             <br>
-            <button onclick="startQuiz()" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-4 px-12 rounded-full text-xl shadow-lg transform transition hover:scale-105">
-                Bắt đầu ngay
-            </button>
+            <button onclick="startQuiz()" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-4 px-12 rounded-full text-xl shadow-lg transition transform hover:scale-105">Bắt đầu</button>
         </div>
 
         <div id="question-page" class="glass-card p-8 hidden-page">
-            <div class="mb-12 relative">
+            <div class="mb-10 relative">
                 <div class="progress-bg">
-                    <div id="progress-bar" style="width: 0%"><img id="panda-walker" src="https://img.icons8.com/color/48/panda.png"></div>
+                    <div id="progress-bar" style="width: 0%"><img id="panda-walker" src="https://png.pngtree.com/png-clipart/20240610/original/pngtree-chibi-cute-panda-png-image_15299496.png"></div>
                 </div>
                 <div class="flex justify-between mt-2 text-sm font-bold text-pink-500">
                     <span id="q-number">Câu 1/40</span>
                     <span id="score-text">Đúng: 0</span>
                 </div>
             </div>
-
-            <h2 id="question-text" class="text-2xl md:text-3xl font-bold text-gray-800 mb-8 text-center leading-relaxed"></h2>
-            
+            <h2 id="question-text" class="text-2xl md:text-3xl font-bold text-gray-800 mb-8 text-center"></h2>
             <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
-
             <div id="input-area" class="hidden-page text-center">
-                <input type="text" id="fill-answer" placeholder="Gõ câu trả lời bằng tiếng Trung..." 
-                    class="w-full p-5 rounded-2xl border-2 border-teal-100 outline-none text-center text-xl shadow-inner mb-6 transition-all duration-300">
-                <button onclick="checkFillAnswer()" id="submit-btn" class="bg-teal-500 hover:bg-teal-600 text-white px-10 py-4 rounded-full font-bold text-lg shadow-md active:scale-95">
-                    Nộp câu trả lời
-                </button>
+                <input type="text" id="fill-answer" placeholder="Gõ câu trả lời bằng tiếng Trung..." class="w-full p-5 rounded-2xl border-2 border-teal-100 outline-none text-center text-xl mb-6">
+                <button onclick="checkFillAnswer()" class="bg-teal-500 text-white px-10 py-4 rounded-full font-bold text-lg shadow-md active:scale-95">Nộp bài</button>
             </div>
         </div>
 
         <div id="result-page" class="glass-card p-12 text-center hidden-page">
-            <h2 class="text-4xl font-bold text-pink-600 mb-4">Hoàn thành! 🎉</h2>
+            <h2 class="text-4xl font-bold text-pink-600 mb-4">Kết quả 🎉</h2>
             <p id="final-msg" class="text-xl text-gray-600 mb-8"></p>
             <div class="text-7xl font-bold text-gray-800 mb-10" id="final-score">0/40</div>
-            <button onclick="location.reload()" class="bg-gray-800 text-white py-4 px-12 rounded-full font-bold hover:bg-black transition">Làm lại bài</button>
+            <button onclick="location.reload()" class="bg-gray-800 text-white py-4 px-12 rounded-full font-bold hover:bg-black transition">Làm lại</button>
         </div>
     </div>
 
@@ -82,38 +70,38 @@
     <script>
         const quizData = [
             // 30 câu trắc nghiệm [cite: 3-33]
-            { q: "nǐ hǎo:", type: "mcq", options: ["再见", "你好", "谢谢", "不客气"], correct: 1 },
-            { q: "lǎoshī:", type: "mcq", options: ["老师", "学生", "汉语", "中国"], correct: 0 },
-            { q: "míngtiān:", type: "mcq", options: ["昨天", "今天", "明天", "现在"], correct: 2 },
-            { q: "chī:", type: "mcq", options: ["看", "吃", "去", "学"], correct: 1 },
-            { q: "shénme:", type: "mcq", options: ["什么", "哪儿", "谁", "怎么"], correct: 0 },
-            { q: "再见:", type: "mcq", options: ["Xin chào", "Cảm ơn", "Tạm biệt", "Xin lỗi"], correct: 2 },
-            { q: "学生:", type: "mcq", options: ["Giáo viên", "Học sinh", "Bạn bè", "Người TQ"], correct: 1 },
-            { q: "哪儿:", type: "mcq", options: ["Khi nào", "Ai", "Ở đâu", "Tại sao"], correct: 2 },
-            { q: "汉语:", type: "mcq", options: ["Tiếng Anh", "Tiếng Nhật", "Tiếng Trung", "Tiếng Hàn"], correct: 2 },
-            { q: "吃:", type: "mcq", options: ["Uống", "Nghe", "Ăn", "Học"], correct: 2 },
-            { q: "我 ___ 汉语。", type: "mcq", options: ["看", "学习", "吃", "去"], correct: 1 },
-            { q: "你 ___ 哪儿？", type: "mcq", options: ["吃", "去", "学", "看"], correct: 1 },
-            { q: "___ 见！", type: "mcq", options: ["明天", "谢谢", "再", "不"], correct: 2 },
-            { q: "这是 ___ 老师。", type: "mcq", options: ["我", "你", "王", "谁"], correct: 2 },
-            { q: "Bạn ăn gì?: 你吃 ___？", type: "mcq", options: ["哪儿", "什么", "谁", "怎么"], correct: 1 },
-            { q: "Chọn câu đúng:", type: "mcq", options: ["你去哪", "你去哪儿", "你哪儿去", "你去儿哪"], correct: 1 },
-            { q: "Chọn câu đúng:", type: "mcq", options: ["我学习汉语", "我学汉语习", "我汉语学习", "学习我汉语"], correct: 0 },
-            { q: "Chọn câu đúng:", type: "mcq", options: ["这是王老师", "这是老师王", "是这王老师", "王老师这是"], correct: 0 },
-            { q: "Chọn câu đúng:", type: "mcq", options: ["你吃什么", "你什么吃", "吃你什么", "什么你吃"], correct: 0 },
-            { q: "Chọn câu đúng:", type: "mcq", options: ["明天见", "见明天", "明见天", "天见明"], correct: 0 },
-            { q: "— 你好！", type: "mcq", options: ["再见", "你好", "谢谢", "对不起"], correct: 1 },
-            { q: "— 你去哪儿？", type: "mcq", options: ["我是学生", "我去学校", "我吃苹果", "我学习汉语"], correct: 1 },
-            { q: "— Đây là ai?: 这是谁？", type: "mcq", options: ["这是王老师", "我去学校", "明天见", "你好"], correct: 0 },
-            { q: "— Bạn học gì?: 你学习什么？", type: "mcq", options: ["我学习汉语", "我吃米饭", "我去中国", "我是老师"], correct: 0 },
-            { q: "— 明天见！", type: "mcq", options: ["谢谢", "对不起", "明天见", "不客气"], correct: 2 },
-            { q: "Sắp xếp đúng: Tôi đi trường học", type: "mcq", options: ["我去学校", "去我学校", "学校我去", "去学校我"], correct: 0 },
-            { q: "Chọn câu đúng:", type: "mcq", options: ["我学习汉语", "学习我汉语", "汉语我学习", "学汉语我"], correct: 0 },
-            { q: "Chọn câu đúng:", type: "mcq", options: ["你吃什么", "吃你什么", "什么你吃", "吃什么你"], correct: 0 },
-            { q: "Sắp xếp đúng: Đây là ai", type: "mcq", options: ["这是谁", "谁这是", "是这谁", "谁是这"], correct: 0 },
-            { q: "Chọn câu đúng:", type: "mcq", options: ["这是王老师", "王老师这是", "是王老师这", "老师王这是"], correct: 0 },
+            { q: "1. nǐ hǎo:", type: "mcq", options: ["再见", "你好", "谢谢", "不客气"], correct: 1 },
+            { q: "2. lǎoshī:", type: "mcq", options: ["老师", "学生", "汉语", "中国"], correct: 0 },
+            { q: "3. míngtiān:", type: "mcq", options: ["昨天", "今天", "明天", "现在"], correct: 2 },
+            { q: "4. chī:", type: "mcq", options: ["看", "吃", "去", "学"], correct: 1 },
+            { q: "5. shénme:", type: "mcq", options: ["什么", "哪儿", "谁", "怎么"], correct: 0 },
+            { q: "6. 再见:", type: "mcq", options: ["Xin chào", "Cảm ơn", "Tạm biệt", "Xin lỗi"], correct: 2 },
+            { q: "7. 学生:", type: "mcq", options: ["Giáo viên", "Học sinh", "Bạn bè", "Người TQ"], correct: 1 },
+            { q: "8. 哪儿:", type: "mcq", options: ["Khi nào", "Ai", "Ở đâu", "Tại sao"], correct: 2 },
+            { q: "9. 汉语:", type: "mcq", options: ["Tiếng Anh", "Tiếng Nhật", "Tiếng Trung", "Tiếng Hàn"], correct: 2 },
+            { q: "10. 吃:", type: "mcq", options: ["Uống", "Nghe", "Ăn", "Học"], correct: 2 },
+            { q: "11. 我 ___ 汉语。", type: "mcq", options: ["看", "学习", "吃", "去"], correct: 1 },
+            { q: "12. 你 ___ 哪儿？", type: "mcq", options: ["吃", "去", "学", "看"], correct: 1 },
+            { q: "13. ___ 见！", type: "mcq", options: ["明天", "谢谢", "再", "不"], correct: 2 },
+            { q: "14. 这是 ___ 老师。", type: "mcq", options: ["我", "你", "王", "谁"], correct: 2 },
+            { q: "15. 你吃 ___？", type: "mcq", options: ["哪儿", "什么", "谁", "怎么"], correct: 1 },
+            { q: "16. Chọn câu đúng:", type: "mcq", options: ["你去哪", "你去哪儿", "你哪儿去", "你去儿哪"], correct: 1 },
+            { q: "17. Chọn câu đúng:", type: "mcq", options: ["我学习汉语", "我学汉语习", "我汉语学习", "学习我汉语"], correct: 0 },
+            { q: "18. Chọn câu đúng:", type: "mcq", options: ["这是王老师", "这是老师王", "是这王老师", "王老师这是"], correct: 0 },
+            { q: "19. Chọn câu đúng:", type: "mcq", options: ["你吃什么", "你什么吃", "吃你什么", "什么你吃"], correct: 0 },
+            { q: "20. Chọn câu đúng:", type: "mcq", options: ["明天见", "见明天", "明见天", "天见明"], correct: 0 },
+            { q: "21. — 你好！", type: "mcq", options: ["再见", "你好", "谢谢", "对不起"], correct: 1 },
+            { q: "22. — 你去哪儿？", type: "mcq", options: ["我是学生", "我去学校", "我吃苹果", "我学习汉语"], correct: 1 },
+            { q: "23. — 这是谁？", type: "mcq", options: ["这是王老师", "我去学校", "明天见", "你好"], correct: 0 },
+            { q: "24. — 你学习什么？", type: "mcq", options: ["我学习汉语", "我吃米饭", "我去中国", "我是老师"], correct: 0 },
+            { q: "25. — 明天见！", type: "mcq", options: ["谢谢", "对不起", "明天见", "不客气"], correct: 2 },
+            { q: "26. Sắp xếp đúng:", type: "mcq", options: ["我去学校", "去我学校", "学校我去", "去学校我"], correct: 0 },
+            { q: "27. Chọn câu đúng:", type: "mcq", options: ["我学习汉语", "学习我汉语", "汉语我学习", "学汉语我"], correct: 0 },
+            { q: "28. Chọn câu đúng:", type: "mcq", options: ["你吃什么", "吃你什么", "什么你吃", "吃什么你"], correct: 0 },
+            { q: "29. Sắp xếp đúng:", type: "mcq", options: ["这是谁", "谁这是", "是这谁", "谁是这"], correct: 0 },
+            { q: "30. Chọn câu đúng:", type: "mcq", options: ["这是王老师", "王老师这是", "是王老师 chè", "老师王这是"], correct: 0 },
 
-            // 10 câu điền từ (từ câu 31-40) [cite: 34-43]
+            // 10 câu điền từ [cite: 34-43]
             { q: "31. Dịch: Bạn khỏe không?", type: "fill", correct: "你好吗" },
             { q: "32. Dịch: Ngày mai tôi đi bưu điện.", type: "fill", correct: "明天我去邮局" },
             { q: "33. Dịch: Tiếng Hán không khó lắm.", type: "fill", correct: "汉语不太难" },
@@ -130,7 +118,7 @@
 
         function startQuiz() {
             studentName = document.getElementById('student-name').value;
-            if (!studentName) return alert("Vui lòng nhập tên học sinh!");
+            if (!studentName) return alert("Vui lòng nhập tên!");
             document.getElementById('start-page').classList.add('hidden-page');
             document.getElementById('question-page').classList.remove('hidden-page');
             loadQuestion();
@@ -141,8 +129,8 @@
             const grid = document.getElementById('options-grid');
             const inputArea = document.getElementById('input-area');
             
-            // XÓA SẠCH NỘI DUNG CŨ ĐỂ KHÔNG BỊ LẪN [Dòng sửa lỗi quan trọng]
-            grid.innerHTML = ''; 
+            // RESET GIAO DIỆN
+            grid.innerHTML = '';
             grid.classList.add('hidden-page');
             inputArea.classList.add('hidden-page');
 
@@ -154,7 +142,7 @@
                 grid.classList.remove('hidden-page');
                 data.options.forEach((opt, i) => {
                     const btn = document.createElement('button');
-                    btn.className = "p-5 rounded-2xl border-2 border-white bg-white text-xl text-gray-700 shadow-sm transition-all duration-300";
+                    btn.className = "p-5 rounded-2xl border-2 border-white bg-white text-xl text-gray-700 shadow-sm transition hover:border-pink-200";
                     btn.innerText = opt;
                     btn.onclick = (e) => handleAnswer(i === data.correct, e.target);
                     grid.appendChild(btn);
@@ -163,7 +151,7 @@
                 inputArea.classList.remove('hidden-page');
                 const input = document.getElementById('fill-answer');
                 input.value = '';
-                input.className = "w-full p-5 rounded-2xl border-2 border-teal-100 outline-none text-center text-xl shadow-inner mb-6 transition-all duration-300";
+                input.className = "w-full p-5 rounded-2xl border-2 border-teal-100 outline-none text-center text-xl mb-6";
                 input.focus();
             }
         }
@@ -178,7 +166,6 @@
         function handleAnswer(isCorrect, element) {
             const sound = document.getElementById(isCorrect ? 's-correct' : 's-wrong');
             sound.currentTime = 0; sound.play();
-
             element.classList.add(isCorrect ? 'correct-flash' : 'wrong-flash');
             if (isCorrect) score++;
             document.getElementById('score-text').innerText = `Đúng: ${score}`;
@@ -193,7 +180,7 @@
         function finishQuiz() {
             document.getElementById('question-page').classList.add('hidden-page');
             document.getElementById('result-page').classList.remove('hidden-page');
-            document.getElementById('final-msg').innerText = `Học sinh ${studentName} đã hoàn thành bài thi!`;
+            document.getElementById('final-msg').innerText = `Học sinh ${studentName} đã hoàn thành!`;
             document.getElementById('final-score').innerText = `${score} / 40`;
         }
     </script>
